@@ -3,13 +3,53 @@
   <head>
     <meta charset="utf-8">
     <title>Cancel Order Sheet</title>
-    <script lang="javascript" src="//cdnjs.cloudflare.com/ajax/libs/xlsx/0.7.7/xlsx.core.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.2/normalize.min.css">
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <p>
-      <input id="order-change-file" type="file" accept=".xlsx">
-    </p>
-    <ol id="mail-link-list"></ol>
+    <form id="entryform">
+      <label for="action-select">Action</label>
+      <select id="action-select">
+        <option>Cancel</option>
+        <option>Untag</option>
+        <option>Change</option>
+        <option>Add</option>
+        <option>Other</option>
+      </select>
+      <label for="vendor-select">Vendor</label>
+      <select id="vendor-select">
+        <option>Kichler</option>
+        <option>Maxim</option>
+        <option>Access</option>
+        <option>Minka</option>
+        <option>Progress</option>
+      </select>
+      <label for="ponum-input">PO #</label>
+      <input id="ponum-input">
+      <label for="ordernum-input">Sales Order #</label>
+      <input id="ordernum-input">
+      <label for="salesperson-input">Salesperson</label>
+      <input id="salesperson-input">
+      <label for="tracker-input">Tracker #</label>
+      <input id="tracker-input">
+      <label for="notes-input">Notes</label>
+      <textarea id="notes-input"></textarea>
+      <button type="button" id="add-item">Add Item</button>
+    </form>
+    <table id="cancellations-table">
+      <thead>
+        <tr>
+          <th>
+            E
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      </tbody>
+    </table>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/3.0.2/js-yaml.min.js"></script>
+    <script type="text/javascript" src="https://stuartpb.github.io/gistachio/v0.1.0/gistachio.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

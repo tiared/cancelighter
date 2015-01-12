@@ -1,27 +1,40 @@
-/* global XLSX */
-var fileInput = document.getElementById("order-change-file");
-var mailOl = document.getElementById("mail-link-list");
+/* global gistachio jsyaml */
 
-function handleFile(e) {
-  var files = fileInput.files;
-  var i,f;
-  for (i = 0, f = files[i]; i != files.length; ++i) {
-    var reader = new FileReader();
-    var name = f.name;
-    reader.onload = readWorkbook;
-    reader.readAsBinaryString(f);
-  }
-  function readWorkbook(e) {
-    var data = e.target.result;
+var vendorSelect = document.getElementById('vendor-select');
 
-    var workbook = XLSX.read(data, {type: 'binary'});
+var vendorsGistId = 'd068a8c1c9cd396093c4';
 
-    makeMailLinks(workbook);
-  };
-}
+var vendorInfo;
 
-function makeMailLinks(workbook) {
+function populateVendors(vendorContactInfo){
+  vendorInfo = vendorContactInfo;
   
+  var presentVendors = {};
+  for (var i=0; i < vendorSelect.options.length; i++) {
+    presentVendors[vendorSelect.options[i].text] = true;
+  }
+  
+  var vendorList = Object.keys(vendorContactInfo);
+  
+  for (var i=0; i < vendorList.length; i++) {
+    var vendorName = vendorList[i];
+    if (!presentVendors[vendorName]) {
+      var vendorOption = document.createElement('option');
+      vendorOption.text = vendorName;
+      vendorSelect.add(vendorOption);
+    }
+  }  
 }
 
-fileInput.addEventListener('change', handleFile, false);
+gistachio.getFiles(vendorsGistId, function gistRetrieval(err, files) {
+  if (err) return console.error(err);
+  else return populateVendors(jsyaml.load(files["vendors.yaml"]));
+});
+
+var actionSelect = document.getElementById('action-select');
+var ponumInput = document.getElementById('ponum-input')
+
+function addItem() {
+ 
+}
+

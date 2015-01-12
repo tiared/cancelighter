@@ -1,0 +1,7 @@
+body {
+  font-size: 14pt;
+}
+button, input, select, textarea {
+  font-family : inherit;
+  font-size   : 100%;
+}
