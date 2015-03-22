@@ -1,8 +1,12 @@
 /* global gistachio jsyaml */
 
 var contactContainer = document.getElementById('contacts');
+var gistPrompt = document.getElementById('gistprompt');
+var gistIdInput = document.getElementById('gistid');
+var gistSubmit = document.getElementById('gistsubmit');
+var gistForm = document.getElementById('gistform');
 
-var vendorsGistId = 'd068a8c1c9cd396093c4';
+var vendorsGistId = localStorage.getItem('gistId');
 
 var vendorInfo;
 
@@ -39,10 +43,24 @@ function populateVendors(vendorContactInfo){
   }  
 }
 
-gistachio.getFiles(vendorsGistId, function gistRetrieval(err, files) {
-  if (err) return console.error(err);
-  else return populateVendors(jsyaml.load(files["vendors.yaml"]));
+if (vendorsGistId) {
+  startEverything();
+} else {
+  gistPrompt.showModal();
+}
+
+gistForm.addEventListener("submit", function(evt) {
+  vendorsGistId = gistachio.parseGistId(gistIdInput.value);
+  localStorage.setItem('gistId', vendorsGistId);
+  startEverything();
 });
+
+function startEverything() {
+  gistachio.getFiles(vendorsGistId, function gistRetrieval(err, files) {
+    if (err) return console.error(err);
+    else return populateVendors(jsyaml.load(files["vendors.yaml"]));
+  });
+}
 
 var actionSelect = document.getElementById('action-select');
 var ponumInput = document.getElementById('ponum-input')
