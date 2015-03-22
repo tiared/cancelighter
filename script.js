@@ -47,6 +47,15 @@ function populateVendors(vendorContactInfo){
       vendorContainer.appendChild(vendorEmailContainer);
       contactContainer.appendChild(vendorContainer);
     }
+    var vendorNotes = vendorInfo[vendorName].notes;
+    if (vendorNotes) {
+      var notesHeader = document.createElement('h3');
+      notesHeader.textContent = 'Notes';
+      var notesContainer = document.createElement('p');
+      notesContainer.textContent = vendorNotes;
+      vendorContainer.appendChild(notesHeader);
+      vendorContainer.appendChild(notesContainer);
+    }
   }  
 }
 
