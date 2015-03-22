@@ -10,6 +10,8 @@ var vendorsGistId = localStorage.getItem('gistId');
 
 var vendorInfo;
 
+var defaultEmailSubject = 'Item cancellation - PO #';
+
 function populateVendors(vendorContactInfo){
   vendorInfo = vendorContactInfo;
   
@@ -33,7 +35,12 @@ function populateVendors(vendorContactInfo){
         var emailDt = document.createElement('dt');
         emailDt.textContent = emailType;
         var emailDd = document.createElement('dd');
-        emailDd.textContent = vendorEmails[emailType];
+        var emailLink = document.createElement('a');
+        var emailAddress = vendorEmails[emailType];
+        emailLink.textContent = emailAddress;
+        emailLink.href = 'mailto:' + encodeURIComponent(emailAddress) +
+          '?subject=' + encodeURIComponent(defaultEmailSubject);
+        emailDd.appendChild(emailLink);
         vendorEmailContainer.appendChild(emailDt);
         vendorEmailContainer.appendChild(emailDd);
       }
