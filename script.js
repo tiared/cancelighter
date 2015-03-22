@@ -14,18 +14,20 @@ var defaultEmailSubject = 'Item cancellation - PO #';
 
 function populateVendors(vendorContactInfo){
   vendorInfo = vendorContactInfo;
-  
+
   var vendorList = Object.keys(vendorContactInfo);
-  
+
   for (var i=0; i < vendorList.length; i++) {
     var vendorName = vendorList[i];
     var vendorContainer = document.createElement('div');
     var vendorHeader = document.createElement('h2');
     vendorHeader.textContent = vendorName;
     vendorContainer.appendChild(vendorHeader);
-    var vendorEmailHeader = document.createElement('h3');
-    vendorEmailHeader.textContent = 'Emails';
-    vendorContainer.appendChild(vendorEmailHeader);
+    if (vendorNotes) {
+      var notesContainer = document.createElement('p');
+      notesContainer.textContent = vendorNotes;
+      vendorContainer.appendChild(notesContainer);
+    }
     var vendorEmails = vendorInfo[vendorName].emails;
     if (vendorEmails) {
       var emailTypes = Object.keys(vendorEmails);
@@ -48,15 +50,7 @@ function populateVendors(vendorContactInfo){
       contactContainer.appendChild(vendorContainer);
     }
     var vendorNotes = vendorInfo[vendorName].notes;
-    if (vendorNotes) {
-      var notesHeader = document.createElement('h3');
-      notesHeader.textContent = 'Notes';
-      var notesContainer = document.createElement('p');
-      notesContainer.textContent = vendorNotes;
-      vendorContainer.appendChild(notesHeader);
-      vendorContainer.appendChild(notesContainer);
-    }
-  }  
+  }
 }
 
 if (vendorsGistId) {
@@ -82,6 +76,6 @@ var actionSelect = document.getElementById('action-select');
 var ponumInput = document.getElementById('ponum-input')
 
 function addItem() {
- 
+
 }
 
